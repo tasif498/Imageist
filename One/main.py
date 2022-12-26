@@ -10,7 +10,7 @@ options=webdriver.ChromeOptions()
 options.add_argument('--disable-blink-features=AutomationControlled')
 # Note: I have to fix the price capturing and the size data
 
-def get_links(url):
+def get_links_one(url):
     links=[]
     try:
         driver=webdriver.Chrome(ChromeDriverManager().install(),options=options)
@@ -41,7 +41,7 @@ def get_links(url):
 
 
 
-def get_data(urls,type,gender):
+def get_data_monark(urls,type,gender):
     details=[]
     try:
         driver=webdriver.Chrome(ChromeDriverManager().install(),options=options)
@@ -139,16 +139,16 @@ def get_data(urls,type,gender):
 
 url='https://beoneshopone.com/collections/men-tops-t-shirts'
 
-links=get_links(url)
+links=get_links_one(url)
 print(len(links))
 print(links)
-details=get_data(links,'T-Shirt','Men')
+details=get_data_monark(links,'T-Shirt','Men')
 
 url='https://beoneshopone.com/collections/men-bottoms-jeans'
 
-links=get_links(url)
+links=get_links_one(url)
 print(len(links))
 print(links)
-details=get_data(links,'jeans','Men')
+details=get_data_monark(links,'jeans','Men')
 df=pd.DataFrame(details)
 df.to_csv('beoneshopone.csv',index=False)

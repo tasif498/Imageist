@@ -10,7 +10,7 @@ import time
 options=webdriver.ChromeOptions()
 options.add_argument('--disable-blink-features=AutomationControlled')
 
-def get_product_links(url):
+def get_product_links_equator(url):
     links=[]
     try:
         driver=webdriver.Chrome(ChromeDriverManager().install(),options=options)
@@ -43,7 +43,7 @@ def get_product_links(url):
         return links
 
 
-def get_product_details(links,type,gender):
+def get_product_details_equator(links,type,gender):
     details=[]
     try:
         driver=webdriver.Chrome(ChromeDriverManager().install(),options=options)
@@ -141,9 +141,9 @@ def get_product_details(links,type,gender):
 
 def main():
     url="https://equatorstores.com/collections/t-shirts"
-    links=get_product_links(url)
+    links=get_product_links_equator(url)
     print('Total links: ',len(links))
-    details=get_product_details(links,'t-shirt','Men')
+    details=get_product_details_equator(links,'t-shirt','Men')
     print('Total details: ',len(details))
     df=pd.DataFrame(details)
     df.to_csv('equator.csv',index=False)

@@ -8,7 +8,7 @@ import time
 
 options=webdriver.ChromeOptions()
 options.add_argument('--disable-blink-features=AutomationControlled')
-def get_product_links(url):
+def get_product_links_outfitters(url):
     links=[]
     try:
         driver=webdriver.Chrome(ChromeDriverManager().install(),options=options)
@@ -39,7 +39,7 @@ def get_product_links(url):
     return links
 
 
-def get_product_details(links,type):
+def get_product_details_outfitters(links,type):
 
     details=[]
     try:
@@ -135,11 +135,11 @@ def get_product_details(links,type):
 details=[]
 links=[]
 url='https://outfitters.com.pk/collections/men-t-shirts'
-links.extend(get_product_links(url))
+links.extend(get_product_links_outfitters(url))
 url='https://outfitters.com.pk/collections/men-shirts'
-links.extend(get_product_links(url))
-details.extend(get_product_details(links,'t-shirt'))
-details.extend(get_product_details(links,'shirt'))
+links.extend(get_product_links_outfitters(url))
+details.extend(get_product_details_outfitters(links,'t-shirt'))
+details.extend(get_product_details_outfitters(links,'shirt'))
 print('Total products:',len(details))
 df=pd.DataFrame(details)
 df.to_csv('outfitters.csv',index=False)
