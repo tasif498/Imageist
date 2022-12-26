@@ -1,0 +1,12 @@
+
+.input-group{
+     position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgb(37, 39, 35);
+  font-size: 20px;
+  margin: 20px;
+  padding: 10px;
+}

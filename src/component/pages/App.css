@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.App {
+    background: #d6d7e1;
+    height: 100vh;
+}
+.input-group{
+     position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgb(37, 39, 35);
+  font-size: 20px;
+  margin: 20px;
+  padding: 10px;
+}
