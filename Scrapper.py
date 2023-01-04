@@ -813,3 +813,94 @@ class Scrapper: # Scrapper class used to scrape data from the web
 
         return details  # Returning the details
 
+
+def run():
+    '''
+    This function is used to run the scrapper
+    '''
+    ScrapperObj=Scrapper()  # Creating the object of the Scrapper class
+    diner_t_shirts_links=ScrapperObj.get_product_links_diners('https://diners.com.pk/collections/t-shirts')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_diners(diner_t_shirts_links,'T-shirts','Men')    # Getting the details of the t-shirts
+
+    diner_shirts=ScrapperObj.get_product_links_diners('https://diners.com.pk/collections/shirts')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_diners(diner_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    diner_jeans=ScrapperObj.get_product_links_diners('https://diners.com.pk/collections/jeans')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_diners(diner_jeans,'Jeans','Men')    # Getting the details of the jeans
+
+    diner_formal_shoes=ScrapperObj.get_product_links_diners('https://diners.com.pk/collections/formal-shoes')  # Getting the links of the formal shoes
+    ScrapperObj.get_product_details_diners(diner_formal_shoes,'Shoes','Men')    # Getting the details of the formal shoes
+
+    diner_belts=ScrapperObj.get_product_links_diners('https://diners.com.pk/collections/belts')  # Getting the links of the belts
+    ScrapperObj.get_product_details_diners(diner_belts,'Belts','Men')    # Getting the details of the belts
+
+    equator_t_shirts=ScrapperObj.get_product_links_equator('https://equatorstores.com/collections/t-shirts')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_equator(equator_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
+
+    equator_shirts=ScrapperObj.get_product_links_equator('https://equatorstores.com/collections/formal-shirts')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_equator(equator_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    equator_jeans=ScrapperObj.get_product_links_equator('https://equatorstores.com/collections/jeans')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_equator(equator_jeans,'Jeans','Men')    # Getting the details of the jeans
+
+    equator_formal_shoes=ScrapperObj.get_product_links_equator('https://equatorstores.com/collections/shoes')  # Getting the links of the formal shoes
+    ScrapperObj.get_product_details_equator(equator_formal_shoes,'Shoes','Men')    # Getting the details of the formal shoes
+
+    equator_belts=ScrapperObj.get_product_links_equator('https://equatorstores.com/collections/belt')  # Getting the links of the belts
+    ScrapperObj.get_product_details_equator(equator_belts,'Belts','Men')    # Getting the details of the belts
+
+    monark_shirts=ScrapperObj.get_product_links_monark('https://monark.com.pk/collections/formal-shirts?usf_sort=r')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_monark(monark_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    monark_jeans=ScrapperObj.get_product_links_monark('https://monark.com.pk/collections/jeans?usf_sort=-date')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_monark(monark_jeans,'Jeans','Men')   # Getting the details of the jeans
+
+    monark_belts=ScrapperObj.get_product_links_monark('https://monark.com.pk/collections/belts?usf_sort=-date')  # Getting the links of the belts
+    ScrapperObj.get_product_details_monark(monark_belts,'Belts','Men')    # Getting the details of the belts
+
+    outfitters_t_shirts=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-t-shirts')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_outfitters(outfitters_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
+
+    outfitters_shirts=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-shirts')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_outfitters(outfitters_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    outfitters_jeans=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-denim-collection')  # Getting the links of the jeans   
+    ScrapperObj.get_product_details_outfitters(outfitters_jeans,'Jeans','Men')    # Getting the details of the jeans
+
+    outfitters_shoes=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-footwear')  # Getting the links of the shoes
+    ScrapperObj.get_product_details_outfitters(outfitters_shoes,'Shoes','Men')    # Getting the details of the shoes
+
+    outfitters_belts=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-accessories?constraint=belts')  # Getting the links of the belts
+    ScrapperObj.get_product_details_outfitters(outfitters_belts,'Belts','Men')    # Getting the details of the belts
+
+    royal_tag_t_shirts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/tees')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_royal_tag(royal_tag_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
+
+    royal_tag_shirts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/formal-shirts-3')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_royal_tag(royal_tag_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    royal_tag_jeans=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/denim')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_royal_tag(royal_tag_jeans,'Jeans','Men')    # Getting the details of the jeans
+
+    royal_tag_belts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/belts')  # Getting the links of the belts
+    ScrapperObj.get_product_details_royal_tag(royal_tag_belts,'Belts','Men')    # Getting the details of the belts
+
+    breakout_t_shirts=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-tees')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_breakout(breakout_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
+
+    breakout_shirts=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-shirts')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_breakout(breakout_shirts,'Shirts','Men')    # Getting the details of the shirts
+
+    breakout_shoes=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-shoes')  # Getting the links of the shoes
+    ScrapperObj.get_product_details_breakout(breakout_shoes,'Shoes','Men')    # Getting the details of the shoes
+
+    breakout_jeans=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-denim')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_breakout(breakout_jeans,'Jeans','Men')    # Getting the details of the jeans
+
+    breakout_belts=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-belts')  # Getting the links of the belts
+    ScrapperObj.get_product_details_breakout(breakout_belts,'Belts','Men')    # Getting the details of the belts
+
+    print('Men\'s Products Scrapped Successfully')
+
+
+
