@@ -136,9 +136,6 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 print(data) # Printing the data
                 details.append(data)    # Appending the data to the details list
             driver.quit()   # Quitting the driver
-            # save data to csv file
-            df=pd.DataFrame(details)    # Converting the details list to pandas dataframe
-            df.to_csv('products.csv',index=False)   # Saving the dataframe to csv file
 
 
         except Exception as e:  # Exception block to handle the exceptions if any
@@ -671,10 +668,6 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 print(data)    # Printing the data
                 details.append(data)    # Appending the data to the details list
             driver.quit()   # Quitting the driver
-            # save data to csv file
-            df=pd.DataFrame(details)    # Creating the dataframe
-            df.to_csv('products.csv',index=False)   # Saving the dataframe to csv file
-
 
         except Exception as e:  # If any exception occurs then printing the exception
             print(e)            # Printing the exception
@@ -813,10 +806,6 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 print(data)    # Printing the data
                 details.append(data)    # Appending the data to the details list
             driver.quit()   # Quitting the driver
-            # save data to csv file
-            df=pd.DataFrame(details)    # Creating the dataframe
-            df.to_csv('products.csv',index=False)   # Saving the dataframe to csv file
-
 
         except Exception as e:  # If any exception occurs then printing the exception
             print(e)    # Printing the exception
