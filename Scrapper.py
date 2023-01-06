@@ -66,47 +66,48 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 except:
                     product_title='No title'    # If the product title is not found then assigning 'No title' to the product title
                 try:
-                    product_price=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[3]/span[2]/span').text # Getting the product price
+                    product_price=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[4]/span[2]/span').text # Getting the product price
                 except:
                     try:    # Try block to handle the exceptions
-                        product_price=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[3]/span[1]/span').text # Getting the product price
+                        product_price=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[4]/span[1]/span').text # Getting the product price
                     except:
                         product_price='No price'    # If the product price is not found then assigning 'No price' to the product price
 
                 try:
-                    product_sku=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[2]/div[1]/span').text    # Getting the product sku
+                    product_sku=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[3]/div[2]/span').text    # Getting the product sku
                 except:
                     product_sku='No sku'    # If the product sku is not found then assigning 'No sku' to the product sku
 
                 try:
-                    product_description=driver.find_element(By.XPATH,'//*[@id="ProductSection-product-template-default"]/div/div[1]/div[2]/div[4]').text    # Getting the product description
+                    product_description=driver.find_element(By.XPATH,'//*[@id="collapse-tab1"]/div').text    # Getting the product description
                 except:
                     product_description='No description'    # If the product description is not found then assigning 'No description' to the product description
 
                 try:
-                    # get div tag with class name 'swatch'
-                    swatches=driver.find_element(By.CLASS_NAME,'swatch')    # Getting the div tag with class name 'swatch'
-                    # get all input tags inside with type 'radio'
-                    swatches=swatches.find_elements(By.XPATH,"//input[@type='radio']")  # Getting all the input tags inside the div tag with type 'radio'
+                    # get div tag with attribute data-option-index='0'
+                    swatches=driver.find_element(By.XPATH, "//div[@data-option-index='0']") # Getting the div tag with attribute data-option-index='0'
+                    # print(swatches.text)
                     sizes=[]    # List to store the sizes
+                    # get all div tags with attribute data-value
+                    swatches=swatches.find_elements(By.XPATH, "./div[@data-value]") # Getting all the div tags with attribute data-value
                     for swatch in swatches: # Loop to get the sizes
-                        # check if swatch is disabled
-                        if swatch.is_enabled(): # Checking if the swatch is disabled
-                            sizes.append(swatch.get_attribute('value'))  # Appending the value attribute to the sizes list
+                        if swatch.is_enabled():
+                            sizes.append(swatch.get_attribute('data-value'))
                     sizes=','.join(sizes)   # Joining the sizes list with comma
-                        
                 except:
                     sizes='No sizes'    # If the sizes are not found then assigning 'No sizes' to the sizes
 
                 try:
                     colors=[]   # List to store the colors
-                    # get div tag with //*[@id="product-variants"]/div[4]
-                    swatches=driver.find_element(By.XPATH,'//*[@id="product-variants"]/div[4]') # Getting the div tag with //*[@id="product-variants"]/div[4]
-                    # get all input tags inside with type 'radio'
-                    swatches=swatches.find_elements(By.XPATH,"//input[@type='radio']")  # Getting all the input tags inside the div tag with type 'radio'
+                    # get div tag with attribute data-option-index='1'
+                    swatches=driver.find_element(By.XPATH,'//div[@data-option-index="1"]') # Getting the div tag with attribute data-option-index='1'
+                    # get all div tags with attribute data-value
+                    swatches=swatches.find_elements(By.XPATH, "./div[@data-value]") # Getting all the div tags with attribute data-value
                     for swatch in swatches: # Loop to get the colors
-                        colors.append(swatch.get_attribute('value'))    # Appending the value attribute to the colors list
+                        if swatch.is_enabled():
+                            colors.append(swatch.get_attribute('data-value')) # Appending the data-value attribute to the colors list
                     colors=','.join(colors) # Joining the colors list with comma
+
                 except: # Exception block to handle the exceptions if any
                     colors='No colors'
 
@@ -121,8 +122,8 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 except:
                     images='No images'  # If the images are not found then assigning 'No images' to the images
 
-                data={ # Dictionary to store the product details
-                    'title':product_title,  
+                data={  # Dictionary to store the data
+                    'title':product_title,
                     'price':product_price,
                     'sku':product_sku,
                     'description':product_description,
@@ -131,6 +132,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     'images':images,
                     'type':type,
                     'product_link':link,
+                    'gender':gender
 
                 }
                 print(data) # Printing the data
@@ -249,7 +251,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 except:
                     images='No images'  # If the images are not found then assigning 'No images' to the images
 
-                data={  # Dictionary to store the product details
+                data={  # Dictionary to store the data
                     'title':product_title,
                     'price':product_price,
                     'sku':product_sku,
@@ -259,6 +261,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     'images':images,
                     'type':type,
                     'product_link':link,
+                    'gender':gender
 
                 }
                 print(data) # Printing the data
@@ -390,8 +393,8 @@ class Scrapper: # Scrapper class used to scrape data from the web
                 except:
                     images='No images'  # If the images are not found then assigning 'No images' to the images
 
-                data={  # Dictionary to store the details
-                    'title':product_title,  
+                data={  # Dictionary to store the data
+                    'title':product_title,
                     'price':product_price,
                     'sku':product_sku,
                     'description':product_description,
@@ -400,6 +403,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     'images':images,
                     'type':type,
                     'product_link':link,
+                    'gender':gender
 
                 }
                 print(data) # Printing the data
@@ -447,7 +451,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
         return links    # Returning the links list
 
 
-    def get_product_details_outfitters(self,links,type):    
+    def get_product_details_outfitters(self,links,type,gender):    
         '''
         This function is used to get the product details from outfitters
         '''
@@ -472,9 +476,12 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     product_sku='Not Found' # If the product sku is not found then assigning 'Not Found' to the product sku
                 # get the product price using class name price-item
                 try:
-                    product_price=driver.find_element(By.CLASS_NAME,"price-item").text  # Getting the product price
+                    product_price=driver.find_element(By.XPATH,'/html/body/main/section/section/div/div[2]/div/div[3]/div[1]/div/div/div[2]/span[4]/span[1]').text   # Getting the product price
                 except:
-                    product_price='Not Found'   # If the product price is not found then assigning 'Not Found' to the product price
+                    try:
+                        product_price=driver.find_element(By.XPATH,'/html/body/main/section/section/div/div[2]/div/div[3]/div[1]/div/div/div[2]/span[2]/s/span').text   # Getting the product price
+                    except:
+                        product_price='Not Found' # If the product price is not found then assigning 'Not Found' to the product price
                 # get the product color using lables in class name color-wrapper
                 try:
                     product_color=driver.find_element(By.CLASS_NAME,"color-wrapper")    # Getting the product color
@@ -510,30 +517,21 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     imgs=','.join(imgs)
                 except:
                     imgs='Not Found'
-                print('-------------------------------------------------------------------------------')
-                print('Product Name:',product_name)
-                print('Product SKU:',product_sku)
-                print('Product Price:',product_price)
-                print('Product Color:',product_color)
-                print('Product Size:',product_size)
-                print('Gender:',gender)
-                print('Product Description:',product_description)
-                print('Product Images:',imgs)
-                print('Product Link:',link)
-                print('PRODUCT TYPE:',type)
-                product_data={  # Creating the dictionary to store the details
-                    'Product Name':product_name,
-                    'Product SKU':product_sku,
-                    'Product Price':product_price,
-                    'Product Color':product_color,
-                    'Product Size':product_size,
-                    'Gender':gender,
-                    'Product Description':product_description,
-                    'Product Images':imgs,
-                    'Product Link':link,
-                    'Type':type
+                data={  # Dictionary to store the data
+                    'title':product_name,
+                    'price':product_price,
+                    'sku':product_sku,
+                    'description':product_description,
+                    'sizes':product_size,
+                    'colors':product_color,
+                    'images':imgs,
+                    'type':type,
+                    'product_link':link,
+                    'gender':gender
+
                 }
-                details.append(product_data)    # Appending the dictionary to the details list
+                print(data) # Printing the data
+                details.append(data)    # Appending the dictionary to the details list
 
             ## close the browser
 
@@ -663,6 +661,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     'images':images,
                     'type':type,
                     'product_link':link,
+                    'gender':gender
 
                 }
                 print(data)    # Printing the data
@@ -801,6 +800,7 @@ class Scrapper: # Scrapper class used to scrape data from the web
                     'images':images,
                     'type':type,
                     'product_link':link,
+                    'gender':gender
 
                 }
                 print(data)    # Printing the data
@@ -873,17 +873,17 @@ def run():
     outfitters_belts=ScrapperObj.get_product_links_outfitters('https://outfitters.com.pk/collections/men-accessories?constraint=belts')  # Getting the links of the belts
     ScrapperObj.get_product_details_outfitters(outfitters_belts,'Belts','Men')    # Getting the details of the belts
 
-    royal_tag_t_shirts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/tees')  # Getting the links of the t-shirts
-    ScrapperObj.get_product_details_royal_tag(royal_tag_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
+    royal_tag_t_shirts=ScrapperObj.get_product_links_royaltag('https://royaltag.com.pk/collections/tees')  # Getting the links of the t-shirts
+    ScrapperObj.get_product_details_royaltag(royal_tag_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
 
-    royal_tag_shirts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/formal-shirts-3')  # Getting the links of the shirts
-    ScrapperObj.get_product_details_royal_tag(royal_tag_shirts,'Shirts','Men')    # Getting the details of the shirts
+    royal_tag_shirts=ScrapperObj.get_product_links_royaltag('https://royaltag.com.pk/collections/formal-shirts-3')  # Getting the links of the shirts
+    ScrapperObj.get_product_details_royaltag(royal_tag_shirts,'Shirts','Men')    # Getting the details of the shirts
 
-    royal_tag_jeans=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/denim')  # Getting the links of the jeans
-    ScrapperObj.get_product_details_royal_tag(royal_tag_jeans,'Jeans','Men')    # Getting the details of the jeans
+    royal_tag_jeans=ScrapperObj.get_product_links_royaltag('https://royaltag.com.pk/collections/denim')  # Getting the links of the jeans
+    ScrapperObj.get_product_details_royaltag(royal_tag_jeans,'Jeans','Men')    # Getting the details of the jeans
 
-    royal_tag_belts=ScrapperObj.get_product_links_royal_tag('https://royaltag.com.pk/collections/belts')  # Getting the links of the belts
-    ScrapperObj.get_product_details_royal_tag(royal_tag_belts,'Belts','Men')    # Getting the details of the belts
+    royal_tag_belts=ScrapperObj.get_product_links_royaltag('https://royaltag.com.pk/collections/belts')  # Getting the links of the belts
+    ScrapperObj.get_product_details_royaltag(royal_tag_belts,'Belts','Men')    # Getting the details of the belts
 
     breakout_t_shirts=ScrapperObj.get_product_links_breakout('https://breakout.com.pk/collections/men-tees')  # Getting the links of the t-shirts
     ScrapperObj.get_product_details_breakout(breakout_t_shirts,'T-shirts','Men')    # Getting the details of the t-shirts
@@ -903,4 +903,4 @@ def run():
     print('Men\'s Products Scrapped Successfully')
 
 
-
+run()
