@@ -8,66 +8,56 @@ from search.serializers import ProductSerializer
 # Create your views here.
 from rest_framework.response import Response
 from rest_framework.views import APIView
+import urllib
 
 
 class search_api(APIView):
     @csrf_exempt
     def get(self, request):
-        query=request.query_params.get('q')
+        # print(request)
+        query = request.query_params.get('q')
+        query = urllib.parse.unquote_plus(query)
+        # print('Got Query:',query)
         if query:
-            print(query)
-            products=Products.objects.all()
-            terms =query.split()
-            for term in terms:
-                products = products.filter(
-                    Q(title__contains=term) |
-                    Q(description__contains=term) |
-                    Q(colors__contains=term) |
-                    Q(gender__contains=term) |
-                    Q(images__contains=term) |
-                    Q(price__contains=term) |
-                    Q(product_link__contains=term) |
-                    Q(sizes__contains=term) |
-                    Q(sku__contains=term) |
-                    Q(type__contains=term)
-                )
-            product_serializer=ProductSerializer(products,many=True)
-            print(products)
-            return JsonResponse(product_serializer.data,safe=False)
-        return JsonResponse('Please provide a query.')
+            products = Products.objects.all()
+            if query != 'all':
+                # print('Got Query:',query)
+                terms = query.split()
+                for term in terms:
+                    products = products.filter(
+                        Q(title__contains=term) |
+                        Q(description__contains=term) |
+                        Q(colors__contains=term) |
+                        Q(gender__contains=term) |
+                        Q(images__contains=term) |
+                        Q(price__contains=term) |
+                        Q(product_link__contains=term) |
+                        Q(sizes__contains=term) |
+                        Q(sku__contains=term) |
+                        Q(type__contains=term)
+                    )
+            product_serializer = ProductSerializer(products, many=True)
+            # print(products)
+            # print('===================================')
+            return JsonResponse(product_serializer.data, safe=False)
+        return JsonResponse('Please provide a query.', safe=False)
+
     @csrf_exempt
-    def post(self,request):
-        product=JSONParser().parse(request)
-        product_serializer=ProductSerializer(data=product)
+    def post(self, request):
+        product = JSONParser().parse(request)
+        product_serializer = ProductSerializer(data=product)
         if product_serializer.is_valid():
             product_serializer.save()
-            return JsonResponse('Added Successfully',safe=False)
-        return JsonResponse('Failed To Add',safe=False)
-# @csrf_exempt
-# def productApi(request, q=0):
+            return JsonResponse('Added Successfully', safe=False)
+        return JsonResponse('Failed To Add', safe=False)
 
-    # if request.method=='GET':
-    #     products=Products.objects.all()
-    #     products_serializer=ProductSerializer(products,many=True)
-    #     return JsonResponse(products_serializer.data,safe=False)
-    # elif request.method=='POST':
-    #     product_data=JSONParser().parse(request)
-    #     print(product_data)
-    #     del product_data['_id']
-    #     products_serializer=ProductSerializer(data=product_data)
-    #     if products_serializer.is_valid():
-    #         products_serializer.save()
-    #         return JsonResponse('Added Successfully',safe=False)
-    #     return JsonResponse('Failed to Add',safe=False)
-    # elif request.method=='PUT':
-    #     product_data=JSONParser.parse(request)
-    #     product=Products.objects.get(_id=product_data['_id'])
-    #     products_serializer=ProductSerializer(product,data=product_data)
-    #     if products_serializer.is_valid():
-    #         products_serializer.save()
-    #         return JsonResponse('Updated Successfully', safe=False)
-    #     return JsonResponse('Failed to Update')
-    # elif request.method=='DELETE':
-    #     product=Products.objects.get(_id=id)
-    #     product.delete()
-    #     return JsonResponse('Deleted Successfully',safe=False)
+class report_api(APIView):
+    @csrf_exempt
+    def get(self,request):
+        link = request.query_params.get('l')
+        link = urllib.parse.unquote_plus(link)
+        if link:
+            print('Link',link)
+            return JsonResponse('Reported Successfully',safe=False)
+        return JsonResponse('Failed to Report',safe=False)
+            

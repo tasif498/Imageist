@@ -4,4 +4,5 @@ from search import views
 urlpatterns = [
     path('search/',views.search_api.as_view(),name='search'),
     # path('search/([0-9]+)$',views.search_api.as_view())
+    path('report/',views.report_api.as_view(),name='report'),
 ]

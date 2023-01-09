@@ -8,8 +8,10 @@ class Products(models.Model):
     gender=models.CharField(max_length=500)
     images=models.CharField(max_length=500)	
     price=models.CharField(max_length=500)
-    product_link=models.CharField(max_length=500)
+    product_link=models.CharField(max_length=500,primary_key=True)
     sizes=models.CharField(max_length=500)
     sku=models.CharField(max_length=500)
     title=models.CharField(max_length=500)
     type=models.CharField(max_length=500)
+    class Meta: 
+        db_table='Imageist_DATA'

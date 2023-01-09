@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'djongo',
     'search.apps.SearchConfig',
 ]
-CORS_ORIGIN_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
